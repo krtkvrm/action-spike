@@ -55,7 +55,7 @@ jobs:
       - run: echo "C"
   #######################################################################
   d:
-    name: c
+    name: d
     runs-on: ubuntu-latest
     needs:
       - a

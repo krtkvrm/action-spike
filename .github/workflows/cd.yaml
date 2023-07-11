@@ -7,7 +7,7 @@ on:
       - '*'
   release:
     types:
-      - created
+      - released
   workflow_dispatch:
     inputs:
       b:
@@ -60,6 +60,6 @@ jobs:
     needs:
       - a
       - c
-    if: ${{ always() && ((github.event_name == 'workflow_dispatch' && github.event.inputs.d == 'true') || ((github.event_name == 'release' && github.event.action == 'created') && (needs.c.result == 'success' || needs.c.result == 'skipped'))) }}
+    if: ${{ always() && ((github.event_name == 'workflow_dispatch' && github.event.inputs.d == 'true') || ((github.event_name == 'release' && github.event.action == 'released') && (needs.c.result == 'success' || needs.c.result == 'skipped'))) }}
     steps:
       - run: echo "D"

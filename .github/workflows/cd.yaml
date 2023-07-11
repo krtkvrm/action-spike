@@ -50,7 +50,7 @@ jobs:
     needs:
       - a
       - b
-    if: ${{ always() && ((github.event_name == 'workflow_dispatch' && github.event.inputs.c == 'true') || (((github.event_name == 'push' && contains(github.ref, 'refs/tags/') || (github.event_name == 'release'))) && (needs.b.result == 'success' || needs.b.result == 'skipped'))) }}
+    if: ${{ always() && ((github.event_name == 'workflow_dispatch' && github.event.inputs.c == 'true') || ((github.event_name == 'push' && contains(github.ref, 'refs/tags/')) && (needs.b.result == 'success' || needs.b.result == 'skipped'))) }}
     steps:
       - run: echo "C"
   #######################################################################
@@ -60,6 +60,6 @@ jobs:
     needs:
       - a
       - b
-    if: ${{ always() && ((github.event_name == 'workflow_dispatch' && github.event.inputs.d == 'true') || ((github.event_name == 'release' && github.event.action == 'created') && (needs.c.result == 'success' || needs.c.result == 'skipped'))) }}
+    if: ${{ always() && ((github.event_name == 'workflow_dispatch' && github.event.inputs.d == 'true') || ((github.event_name == 'release' && github.event.action == 'released') && (needs.c.result == 'success' || needs.c.result == 'skipped'))) }}
     steps:
       - run: echo "D"

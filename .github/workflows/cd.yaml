@@ -40,7 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - a
-    if: ${{ always() && ((github.event_name == 'workflow_dispatch' && github.event.inputs.b == 'true') || ((github.event_name == 'push') && (needs.a.result == 'success' || needs.a.result == 'skipped'))) }}
+    if: ${{ always() && ((github.event_name == 'workflow_dispatch' && github.event.inputs.b == 'true') || (((github.event_name == 'push') || (github.event_name == 'release')) && (needs.a.result == 'success' || needs.a.result == 'skipped'))) }}
     steps:
       - run: echo "B"
   #######################################################################
@@ -50,7 +50,7 @@ jobs:
     needs:
       - a
       - b
-    if: ${{ always() && ((github.event_name == 'workflow_dispatch' && github.event.inputs.c == 'true') || ((github.event_name == 'push' && contains(github.ref, 'refs/tags/')) && (needs.b.result == 'success' || needs.b.result == 'skipped'))) }}
+    if: ${{ always() && ((github.event_name == 'workflow_dispatch' && github.event.inputs.c == 'true') || (((github.event_name == 'push' && contains(github.ref, 'refs/tags/') || (github.event_name == 'release'))) && (needs.b.result == 'success' || needs.b.result == 'skipped'))) }}
     steps:
       - run: echo "C"
   #######################################################################
